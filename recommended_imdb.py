@@ -2,6 +2,7 @@ import urllib.request,urllib.parse,urllib.error
 import requests
 import os
 import pprint
+import hidden
 import pandas as pd
 from requests_html import HTML
 
@@ -10,7 +11,7 @@ base_dir = os.path.dirname(__file__)
 def get_title_id(name):
 	url = 'http://www.omdbapi.com/?'
 	param = dict()
-	param['apikey']='c8cab0a7'
+	param['apikey']=hidden.apikey()
 	param['t']=name
 
 	url = url + urllib.parse.urlencode(param)
@@ -68,7 +69,7 @@ def parse_data(html_data,count):
 name = "His dark materials"
 url = 'https://www.imdb.com/title/' + get_title_id(name) + '/'
 html_data = get_html_data(url)
-parse_data(html_data,3)
+parse_data(html_data,2)
 
 df = pd.DataFrame(table_data,columns=headers)
 df.to_csv('recommendations.csv',index=False)
